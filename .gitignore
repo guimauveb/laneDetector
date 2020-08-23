@@ -1,0 +1,6 @@
+images/
+python/
+trials/
+videos/
+laneDet_old.cpp
+.DS_Store
