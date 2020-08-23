@@ -1,7 +1,8 @@
 # C++ / OpenCV Basic Lane Detection 
 ![Lane Detector](/imgs/screenshot.jpg)
-**Basic road lane detection program inspired by various project I found on the web, most of them written in Python.**
-**Supports images and videos sources**
+
+**Basic road lane detection program inspired by various project I found on the web, most of them written in Python.**  
+**It supports a wide variety of images and videos formats.**  
 **It works well with good quality sources (I would say somewhere around at least YouTube 720p quality).**
 **The higher the contrast between the lanes and the road the easier it is for the program to correctly detect lanes location.**
 
