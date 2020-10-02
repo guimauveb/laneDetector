@@ -134,7 +134,7 @@ Mat denoise(Mat& img)
     // imshow("denoised", denoised);
     // waitKey();
     t = (double)1000*(getTickCount() - t) / getTickFrequency();
-    //std::cout << "denoise took\t\t" << t << " milliseconds to process the image." << std::endl;
+    std::cout << "denoise took\t\t" << t << " milliseconds to process the image." << std::endl;
     return denoised;
 }
 
@@ -207,8 +207,8 @@ Mat getTheROI(Mat& img, int fov)
     // waitKey();
 
     t = 1000*((double)getTickCount() - t)/getTickFrequency();
-    //std::cout << "getTheROI took\t\t" << t << " milliseconds to process the image." 
-    //   << std::endl;
+    std::cout << "getTheROI took\t\t" << t << " milliseconds to process the image." 
+       << std::endl;
 
     return dst;
 }
@@ -216,8 +216,8 @@ Mat getTheROI(Mat& img, int fov)
 Mat betterCanny(Mat& img, double median)
 {
     /* Benchmark */
-    //double t;
-    //t = (double)getTickCount();
+    double t;
+    t = (double)getTickCount();
     /* Get the best result from the Canny edge detector by detecting the ideal lower and upper
      * threshold values. */
     // A sigma of 0.33 seems to yield the best results.
@@ -232,9 +232,9 @@ Mat betterCanny(Mat& img, double median)
     // waitKey();
 
     /* Benchmark */
-    //t = 1000*((double)getTickCount() - t)/getTickFrequency();
-    //std::cout << "betterCanny took\t" << t << " milliseconds to process the image." 
-    //   << std::endl;
+    t = 1000*((double)getTickCount() - t)/getTickFrequency();
+    std::cout << "betterCanny took\t" << t << " milliseconds to process the image." 
+       << std::endl;
 
     return edged;
 }
@@ -242,8 +242,8 @@ Mat betterCanny(Mat& img, double median)
 double medianMat(Mat img)
 {
     /* Benchmark */
-    //double t;
-    //t = (double)getTickCount();
+    double t;
+    t = (double)getTickCount();
     /* In order to get the optimal low and high threshold values for our Canny edge detector,
      * we need to compute the median pixel value of the image. */
     // Spread img to a single row
@@ -256,9 +256,9 @@ double medianMat(Mat img)
     int vn = v[n];
 
     /* Benchmark */
-    //t = 1000*((double)getTickCount() - t)/getTickFrequency();
-    //std::cout << "medianMat took\t\t" << t << " milliseconds to process the image." 
-    //   << std::endl;
+    t = 1000*((double)getTickCount() - t)/getTickFrequency();
+    std::cout << "medianMat took\t\t" << t << " milliseconds to process the image." 
+       << std::endl;
 
     // If v is an odd sized vector, return the middle element
     if (v.size() % 2)
@@ -283,8 +283,8 @@ std::vector<Vec4i> HoughTransform(Mat& img)
      */
 
     /* Benchmark */
-    //    double t;
-    //    t = (double)getTickCount();
+        double t;
+        t = (double)getTickCount();
 
     Mat houghed = img.clone();
 
@@ -293,8 +293,8 @@ std::vector<Vec4i> HoughTransform(Mat& img)
     HoughLinesP(img, lines, 4, CV_PI/180, 30, 40, 10);
 
     //    t = 1000*((double)getTickCount() - t)/getTickFrequency();
-    //std::cout << "Hough transform took\t" << t << " milliseconds to process the image." 
-    //   << std::endl;
+    std::cout << "Hough transform took\t" << t << " milliseconds to process the image." 
+       << std::endl;
 
     return lines;
 }
@@ -356,9 +356,9 @@ std::vector<int> getLinearFunction(std::vector<Vec4i> lines, int min_y, int max_
     std::vector<int> finalLines = {left_x_start,  left_x_end, 
         right_x_start, right_x_end, 
         min_y,         max_y};
-    //   t = 1000*((getTickCount() - t) / getTickFrequency());
-    //    std::cout << "getLinearFunction took\t" << t << " milliseconds to process the image." 
-    //        << std::endl << std::endl;
+       t = 1000*((getTickCount() - t) / getTickFrequency());
+        std::cout << "getLinearFunction took\t" << t << " milliseconds to process the image." 
+           << std::endl << std::endl;
 
     return finalLines;
 }
@@ -407,7 +407,7 @@ int getBrightness(Mat& img)
     cvtColor(img, gray, COLOR_BGR2GRAY);
     brightness = mean(gray);
     int bright = sum(brightness)[0];
-    //    std::cout << "brightness = " << bright << std::endl;
+        std::cout << "brightness = " << bright << std::endl;
 
     return bright;
 }
@@ -423,8 +423,8 @@ int processImage(std::string filename, bool render, int fov)
         std::cout << "Processing "<< filename << "..." << std::endl;
 
     /* Benchmark */
-    //double t;
-    //t = (double)getTickCount();
+    double t;
+    t = (double)getTickCount();
 
     // 1. Frame pre-processing - common to any type of source
     // Determine brightness
@@ -435,8 +435,9 @@ int processImage(std::string filename, bool render, int fov)
     cvtColor(src, src_gray, COLOR_BGR2GRAY);
     Mat edged;
     /* What if brightness is very low ? */
-    if (BRIGHTNESS_L >  brightness)
+    if (BRIGHTNESS_L >  brightness) {
         ;
+    }
 
     /* Use adaptive mean threshold technique to detect lanes if 100 < brightnes < 150 (
      * but what is considered bright ?) */
@@ -515,9 +516,9 @@ int processImage(std::string filename, bool render, int fov)
     // waitKey();
     // 3. Lane tracking
 
-    //    t = 1000*((double)getTickCount() - t)/getTickFrequency();
-    //    std::cout << std::endl << "The program took\t\t" << t 
-    //        << " milliseconds to process the image." << std::endl;
+        t = 1000*((double)getTickCount() - t)/getTickFrequency();
+        std::cout << std::endl << "The program took\t\t" << t 
+            << " milliseconds to process the image." << std::endl;
 
     return 0;
 }
@@ -531,8 +532,8 @@ int processVideo(std::string filename, bool render, int fov)
     std::cout << "Processing " << filename << "..." << std::endl;
 
     /* Benchmark */
-    //double t;
-    //t = (double)getTickCount();
+    double t;
+    t = (double)getTickCount();
     Mat src, src_gray, gray_denoised, smoothed, edged, ROI, denoised;
     for (;;) {
         cap >> src;
@@ -623,9 +624,9 @@ int processVideo(std::string filename, bool render, int fov)
     }
 
     /* Display total time */
-    // t = 1000*((double)getTickCount() - t)/getTickFrequency();
-    // std::cout << std::endl << "The program took\t" << t 
-    //     << " milliseconds to process the video." << std::endl;
+     t = 1000*((double)getTickCount() - t)/getTickFrequency();
+     std::cout << std::endl << "The program took\t" << t 
+         << " milliseconds to process the video." << std::endl;
 
     return 0;
 }
